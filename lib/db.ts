@@ -7,10 +7,11 @@ let db: Database.Database | null = null;
 function getDb(): Database.Database {
   if (db) return db;
   
-  const isProduction = process.env.NODE_ENV === 'production';
-  const dbDir = isProduction ? '/data' : process.cwd();
-  const dbPath = path.join(dbDir, 'snakebet.db');
+  const dbPath = process.env.DB_PATH 
+    ? path.join(process.env.DB_PATH, 'snakebet.db')
+    : path.join(process.cwd(), 'snakebet.db');
   
+  const dbDir = path.dirname(dbPath);
   if (!fs.existsSync(dbDir)) {
     fs.mkdirSync(dbDir, { recursive: true });
   }
@@ -285,7 +286,7 @@ export function updateSetting(key: string, value: string): void {
 export function getStats(): { totalUsers: number; totalGames: number; totalVolume: number } {
   const users = getDb().prepare('SELECT COUNT(*) as count FROM users').get() as { count: number };
   const games = getDb().prepare('SELECT COUNT(*) as count FROM games').get() as { count: number };
-  const volume = getDb().prepare('SELECT COALESCE(SUM(amount), 0) as total FROM transactions WHERE type IN (\'stake\', \'win\')').get() as { total: number };
+  const volume = getDb().prepare("SELECT COALESCE(SUM(amount), 0) as total FROM transactions WHERE type IN ('stake', 'win')").get() as { total: number };
   
   return {
     totalUsers: users.count,
@@ -330,10 +331,5 @@ export function getMpesaTransaction(checkoutRequestId: string) {
   return getDb().prepare('SELECT * FROM mpesa_transactions WHERE checkout_request_id = ?').get(checkoutRequestId);
 }
 
-const db = {
-  prepare: (...args: any[]) => getDb().prepare(...args),
-  exec: (...args: any[]) => getDb().exec(...args),
-  pragma: (...args: any[]) => getDb().pragma(...args)
-};
-
-export default db;
+export { getDb as db };
+export default { getDb };
