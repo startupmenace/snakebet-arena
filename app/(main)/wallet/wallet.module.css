@@ -1,0 +1,368 @@
+.page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--surface-dark) 0%, var(--purple) 100%);
+}
+
+.main {
+  padding: 120px 24px 80px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.pageTitle {
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 40px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.leftColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.balanceCard {
+  background: var(--surface);
+  border: 2px solid var(--pink);
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: 0 0 40px rgba(255, 78, 205, 0.2);
+}
+
+.balanceHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.balanceIcon {
+  font-size: 28px;
+}
+
+.balanceLabel {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.balanceAmount {
+  font-family: var(--font-mono);
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--green);
+  margin-bottom: 16px;
+}
+
+.lockedInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: rgba(255, 165, 2, 0.1);
+  border: 1px solid var(--warning);
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--warning);
+}
+
+.actionCard {
+  background: var(--surface);
+  border: 1px solid rgba(255, 78, 205, 0.2);
+  border-radius: 20px;
+  padding: 32px;
+}
+
+.tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 32px;
+  padding: 4px;
+  background: var(--surface-dark);
+  border-radius: 12px;
+}
+
+.tab {
+  flex: 1;
+  padding: 12px 24px;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tab:hover {
+  color: var(--text);
+}
+
+.tabActive {
+  background: var(--pink);
+  color: var(--text);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.input {
+  width: 100%;
+  padding: 16px;
+  background: var(--surface-dark);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  color: var(--text);
+  font-size: 16px;
+  font-family: var(--font-mono);
+  transition: all 0.2s ease;
+}
+
+.input:focus {
+  border-color: var(--pink);
+  box-shadow: 0 0 0 3px rgba(255, 78, 205, 0.2);
+}
+
+.input::placeholder {
+  color: var(--text-secondary);
+}
+
+.readOnly {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.hint {
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-top: 6px;
+}
+
+.message {
+  padding: 14px 16px;
+  border-radius: 10px;
+  font-size: 13px;
+  text-align: center;
+}
+
+.message.success {
+  background: rgba(46, 213, 115, 0.1);
+  border: 1px solid var(--success);
+  color: var(--success);
+}
+
+.message.error {
+  background: rgba(255, 71, 87, 0.1);
+  border: 1px solid var(--error);
+  color: var(--error);
+}
+
+.submitBtn {
+  width: 100%;
+  padding: 18px 24px;
+  background: linear-gradient(135deg, var(--green), var(--green-dark));
+  color: var(--surface-dark);
+  font-size: 16px;
+  font-weight: 700;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 20px rgba(57, 255, 20, 0.3);
+}
+
+.submitBtn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(57, 255, 20, 0.5);
+}
+
+.submitBtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.securityNote {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.rightColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.transactionsCard {
+  background: var(--surface);
+  border: 1px solid rgba(255, 78, 205, 0.2);
+  border-radius: 20px;
+  padding: 28px;
+  height: fit-content;
+}
+
+.transactionsTitle {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 24px;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 48px 24px;
+  color: var(--text-secondary);
+}
+
+.emptyState span {
+  font-size: 36px;
+  display: block;
+  margin-bottom: 12px;
+  opacity: 0.5;
+}
+
+.transactionsList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.transaction {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: var(--surface-dark);
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.transaction:hover {
+  background: rgba(255, 78, 205, 0.05);
+}
+
+.txIcon {
+  font-size: 24px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+}
+
+.txInfo {
+  flex: 1;
+}
+
+.txType {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.txMeta {
+  display: flex;
+  gap: 12px;
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.txRight {
+  text-align: right;
+}
+
+.txAmount {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.txAmount.deposit,
+.txAmount.win,
+.txAmount.refund {
+  color: var(--success);
+}
+
+.txAmount.withdraw,
+.txAmount.stake,
+.txAmount.commission {
+  color: var(--error);
+}
+
+.txStatus {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.statusPending {
+  color: var(--warning);
+}
+
+.statusSuccess {
+  color: var(--success);
+}
+
+.statusFailed {
+  color: var(--error);
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .main {
+    padding: 100px 16px 60px;
+  }
+  
+  .pageTitle {
+    font-size: 24px;
+  }
+  
+  .balanceAmount {
+    font-size: 36px;
+  }
+}

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="snakeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff4ecd"/>
+      <stop offset="100%" style="stop-color:#39ff14"/>
+    </linearGradient>
+  </defs>
+  <rect width="100" height="100" rx="20" fill="#0d0d1a"/>
+  <path d="M25 50 Q25 25 50 25 Q75 25 75 50 Q75 60 65 60 Q55 60 55 50 Q55 40 65 40 Q80 40 80 55 Q80 75 55 75 Q30 75 30 50 Q30 35 45 35 Q50 35 50 40 Q50 50 40 50 Q25 50 25 50"
+        fill="url(#snakeGrad)" stroke="#39ff14" stroke-width="2"/>
+  <circle cx="35" cy="42" r="4" fill="white"/>
+</svg>

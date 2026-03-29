@@ -1,0 +1,508 @@
+.page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--surface-dark) 0%, var(--purple) 100%);
+}
+
+.main {
+  padding: 120px 24px 80px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  gap: 16px;
+  color: var(--text-secondary);
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 78, 205, 0.2);
+  border-top-color: var(--pink);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-size: 16px;
+  color: var(--text-secondary);
+}
+
+.createBtn {
+  padding: 14px 28px;
+  background: linear-gradient(135deg, var(--pink), var(--pink-dark));
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(255, 78, 205, 0.3);
+  transition: all 0.3s ease;
+}
+
+.createBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(255, 78, 205, 0.5);
+}
+
+.message {
+  padding: 14px 20px;
+  border-radius: 12px;
+  font-size: 14px;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.message.success {
+  background: rgba(46, 213, 115, 0.1);
+  border: 1px solid var(--success);
+  color: var(--success);
+}
+
+.message.error {
+  background: rgba(255, 71, 87, 0.1);
+  border: 1px solid var(--error);
+  color: var(--error);
+}
+
+.createCard {
+  background: var(--surface);
+  border: 1px solid rgba(255, 78, 205, 0.3);
+  border-radius: 20px;
+  padding: 32px;
+  margin-bottom: 40px;
+  animation: slideUp 0.3s ease;
+}
+
+.createCard h2 {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 24px;
+}
+
+.createForm {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+}
+
+.stakeInput {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.input {
+  width: 100%;
+  padding: 16px;
+  background: var(--surface-dark);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  color: var(--text);
+  font-size: 20px;
+  font-family: var(--font-mono);
+  transition: all 0.2s ease;
+}
+
+.input:focus {
+  border-color: var(--pink);
+  box-shadow: 0 0 0 3px rgba(255, 78, 205, 0.2);
+}
+
+.stakeHint {
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.roundsSelector {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.roundBtn {
+  padding: 16px 12px;
+  background: var(--surface-dark);
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 600;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.roundBtn:hover {
+  border-color: var(--pink);
+  color: var(--text);
+}
+
+.roundBtnActive {
+  background: var(--pink);
+  border-color: var(--pink);
+  color: var(--text);
+}
+
+.potPreview {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  background: rgba(57, 255, 20, 0.1);
+  border: 1px solid var(--green);
+  border-radius: 12px;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.potAmount {
+  font-family: var(--font-mono);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--green);
+}
+
+.submitBtn {
+  padding: 18px 24px;
+  background: linear-gradient(135deg, var(--green), var(--green-dark));
+  color: var(--surface-dark);
+  font-size: 16px;
+  font-weight: 700;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(57, 255, 20, 0.3);
+  transition: all 0.3s ease;
+}
+
+.submitBtn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(57, 255, 20, 0.5);
+}
+
+.submitBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.balanceWarning {
+  font-size: 13px;
+  color: var(--error);
+  text-align: center;
+}
+
+.balanceWarning a {
+  color: var(--pink);
+}
+
+.inviteCard {
+  background: var(--surface);
+  border: 2px solid var(--green);
+  border-radius: 20px;
+  padding: 40px;
+  margin-bottom: 40px;
+  text-align: center;
+  box-shadow: 0 0 40px rgba(57, 255, 20, 0.2);
+  animation: slideUp 0.3s ease;
+}
+
+.inviteIcon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.inviteCard h2 {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.inviteCard p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+}
+
+.inviteLinkBox {
+  display: flex;
+  gap: 12px;
+  max-width: 500px;
+  margin: 0 auto 20px;
+}
+
+.inviteLinkInput {
+  flex: 1;
+  padding: 14px 16px;
+  background: var(--surface-dark);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  color: var(--text);
+  font-size: 13px;
+  font-family: var(--font-mono);
+}
+
+.copyBtn {
+  padding: 14px 24px;
+  background: var(--pink);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.copyBtn:hover {
+  background: var(--pink-dark);
+}
+
+.waitingNote {
+  font-size: 14px;
+  color: var(--warning);
+  animation: pulse 2s infinite;
+}
+
+.gamesSection {
+  margin-top: 40px;
+}
+
+.sectionTitle {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 24px;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 60px 24px;
+  background: var(--surface);
+  border: 1px dashed rgba(255, 78, 205, 0.3);
+  border-radius: 20px;
+}
+
+.emptyState span {
+  font-size: 48px;
+  display: block;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.emptyState h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.emptyState p {
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.gamesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.gameCard {
+  background: var(--surface);
+  border: 1px solid rgba(255, 78, 205, 0.2);
+  border-radius: 16px;
+  padding: 24px;
+  transition: all 0.3s ease;
+}
+
+.gameCard:hover {
+  border-color: var(--pink);
+  box-shadow: 0 0 30px rgba(255, 78, 205, 0.2);
+  transform: translateY(-4px);
+}
+
+.gameHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.playerInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--pink), var(--blue));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.playerName {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.playerLabel {
+  font-size: 11px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+
+.badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.badgeWarning {
+  background: rgba(255, 165, 2, 0.2);
+  color: var(--warning);
+}
+
+.gameDetails {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.detail {
+  text-align: center;
+  padding: 12px;
+  background: var(--surface-dark);
+  border-radius: 8px;
+}
+
+.detailLabel {
+  display: block;
+  font-size: 10px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.detailValue {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.joinBtn {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, var(--green), var(--green-dark));
+  color: var(--surface-dark);
+  font-size: 14px;
+  font-weight: 700;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.joinBtn:hover:not(:disabled) {
+  box-shadow: 0 0 20px rgba(57, 255, 20, 0.4);
+}
+
+.joinBtn:disabled {
+  background: var(--text-secondary);
+  cursor: not-allowed;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@media (max-width: 768px) {
+  .main {
+    padding: 100px 16px 60px;
+  }
+  
+  .title {
+    font-size: 24px;
+  }
+  
+  .roundsSelector {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .inviteLinkBox {
+    flex-direction: column;
+  }
+}

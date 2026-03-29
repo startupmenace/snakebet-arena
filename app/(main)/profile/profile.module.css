@@ -1,0 +1,303 @@
+.page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--surface-dark) 0%, var(--purple) 100%);
+}
+
+.main {
+  padding: 120px 24px 80px;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  gap: 16px;
+  color: var(--text-secondary);
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 78, 205, 0.2);
+  border-top-color: var(--pink);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.profileHeader {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  padding: 40px;
+  background: var(--surface);
+  border: 1px solid rgba(255, 78, 205, 0.2);
+  border-radius: 24px;
+  margin-bottom: 32px;
+}
+
+.avatarLarge {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--pink), var(--blue));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--text);
+  box-shadow: 0 0 40px rgba(255, 78, 205, 0.4);
+}
+
+.userInfo {
+  flex: 1;
+}
+
+.username {
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.email {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.phone {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--green);
+  margin-bottom: 8px;
+}
+
+.memberSince {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.statCard {
+  background: var(--surface);
+  border: 1px solid rgba(255, 78, 205, 0.2);
+  border-radius: 16px;
+  padding: 24px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.statCard:hover {
+  border-color: var(--pink);
+  transform: translateY(-4px);
+}
+
+.statCard.wins {
+  border-color: var(--success);
+}
+
+.statCard.wins .statValue {
+  color: var(--success);
+}
+
+.statCard.losses {
+  border-color: var(--error);
+}
+
+.statCard.losses .statValue {
+  color: var(--error);
+}
+
+.statCard.winRate .statValue {
+  color: var(--pink);
+}
+
+.statValue {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.statLabel {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.section {
+  background: var(--surface);
+  border: 1px solid rgba(255, 78, 205, 0.2);
+  border-radius: 20px;
+  padding: 32px;
+}
+
+.sectionTitle {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 24px;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 48px 24px;
+}
+
+.emptyState span {
+  font-size: 48px;
+  display: block;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.emptyState p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+}
+
+.playLink {
+  display: inline-flex;
+  padding: 12px 24px;
+  background: var(--pink);
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.playLink:hover {
+  background: var(--pink-dark);
+  color: var(--text);
+}
+
+.gamesList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.gameItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: var(--surface-dark);
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.gameItem:hover {
+  background: rgba(255, 78, 205, 0.05);
+}
+
+.gameDate {
+  font-size: 12px;
+  color: var(--text-secondary);
+  min-width: 100px;
+}
+
+.gameDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  margin-left: 20px;
+}
+
+.gameStake {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.gameRounds {
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.gameResult {
+  margin-left: auto;
+}
+
+.resultBadge {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.resultBadge.win {
+  background: rgba(46, 213, 115, 0.2);
+  color: var(--success);
+}
+
+.resultBadge.loss {
+  background: rgba(255, 71, 87, 0.2);
+  color: var(--error);
+}
+
+.resultBadge.pending {
+  background: rgba(255, 165, 2, 0.2);
+  color: var(--warning);
+}
+
+@media (max-width: 768px) {
+  .main {
+    padding: 100px 16px 60px;
+  }
+  
+  .profileHeader {
+    flex-direction: column;
+    text-align: center;
+    padding: 32px 24px;
+  }
+  
+  .avatarLarge {
+    width: 100px;
+    height: 100px;
+    font-size: 40px;
+  }
+  
+  .username {
+    font-size: 24px;
+  }
+  
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .statValue {
+    font-size: 28px;
+  }
+}

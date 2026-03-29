@@ -1,0 +1,457 @@
+.page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--surface-dark) 0%, var(--purple) 100%);
+}
+
+.main {
+  padding: 120px 24px 80px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  gap: 16px;
+  color: var(--text-secondary);
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 78, 205, 0.2);
+  border-top-color: var(--pink);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.greeting {
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  font-size: 16px;
+  color: var(--text-secondary);
+}
+
+.playBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 32px;
+  background: linear-gradient(135deg, var(--green), var(--green-dark));
+  color: var(--surface-dark);
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 12px;
+  box-shadow: 0 0 30px rgba(57, 255, 20, 0.4);
+  transition: all 0.3s ease;
+}
+
+.playBtn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 50px rgba(57, 255, 20, 0.6);
+  color: var(--surface-dark);
+}
+
+.playBtn span {
+  font-size: 20px;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: 2fr repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 48px;
+}
+
+.walletCard {
+  background: var(--surface);
+  border: 2px solid var(--pink);
+  border-radius: 20px;
+  padding: 28px;
+  box-shadow: 0 0 40px rgba(255, 78, 205, 0.2);
+}
+
+.walletHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.walletIcon {
+  font-size: 24px;
+}
+
+.walletLabel {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.walletBalance {
+  font-family: var(--font-mono);
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--green);
+  margin-bottom: 8px;
+}
+
+.lockedAmount {
+  font-size: 12px;
+  color: var(--warning);
+  margin-bottom: 20px;
+}
+
+.walletActions {
+  display: flex;
+  gap: 12px;
+}
+
+.walletBtn {
+  flex: 1;
+  padding: 12px;
+  background: var(--pink);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.walletBtn:hover {
+  background: var(--pink-dark);
+  color: var(--text);
+}
+
+.walletBtnSecondary {
+  background: transparent;
+  border: 2px solid var(--pink);
+  color: var(--pink);
+}
+
+.walletBtnSecondary:hover {
+  background: rgba(255, 78, 205, 0.1);
+  color: var(--pink);
+}
+
+.statCard {
+  background: var(--surface);
+  border: 1px solid rgba(255, 78, 205, 0.2);
+  border-radius: 20px;
+  padding: 24px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.statCard:hover {
+  border-color: var(--pink);
+  box-shadow: 0 0 30px rgba(255, 78, 205, 0.2);
+}
+
+.statIcon {
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+
+.statValue {
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.statValue.earnings {
+  color: var(--green);
+}
+
+.statLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 32px;
+}
+
+.section {
+  background: var(--surface);
+  border: 1px solid rgba(255, 78, 205, 0.2);
+  border-radius: 20px;
+  padding: 28px;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.sectionTitle {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.viewAll {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--pink);
+  text-decoration: none;
+}
+
+.viewAll:hover {
+  text-decoration: underline;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 48px 24px;
+}
+
+.emptyIcon {
+  font-size: 48px;
+  display: block;
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.emptyState h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.emptyState p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+}
+
+.playLink {
+  display: inline-flex;
+  padding: 12px 24px;
+  background: var(--pink);
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.playLink:hover {
+  background: var(--pink-dark);
+  color: var(--text);
+}
+
+.gamesList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.gameItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  background: var(--surface-dark);
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.gameItem:hover {
+  background: rgba(255, 78, 205, 0.1);
+}
+
+.gameInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.gameStake {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.gameMeta {
+  font-size: 12px;
+  color: var(--text-secondary);
+  text-transform: capitalize;
+}
+
+.gameRight {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.gameResult {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.gameResult.win {
+  background: rgba(46, 213, 115, 0.2);
+  color: var(--success);
+}
+
+.gameResult.loss {
+  background: rgba(255, 71, 87, 0.2);
+  color: var(--error);
+}
+
+.badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.badgePrimary {
+  background: rgba(255, 78, 205, 0.2);
+  color: var(--pink);
+}
+
+.badgeSuccess {
+  background: rgba(46, 213, 115, 0.2);
+  color: var(--success);
+}
+
+.badgeWarning {
+  background: rgba(255, 165, 2, 0.2);
+  color: var(--warning);
+}
+
+.badgeError {
+  background: rgba(255, 71, 87, 0.2);
+  color: var(--error);
+}
+
+.quickActions {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.actionCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 16px;
+  background: var(--surface-dark);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.actionCard:hover {
+  border-color: var(--pink);
+  background: rgba(255, 78, 205, 0.05);
+  transform: translateY(-4px);
+}
+
+.actionIcon {
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+
+.actionTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.actionDesc {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+@media (max-width: 1024px) {
+  .statsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .walletCard {
+    grid-column: span 2;
+  }
+  
+  .content {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .main {
+    padding: 100px 16px 60px;
+  }
+  
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .greeting {
+    font-size: 24px;
+  }
+  
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .walletCard {
+    grid-column: span 1;
+  }
+  
+  .quickActions {
+    grid-template-columns: 1fr;
+  }
+}

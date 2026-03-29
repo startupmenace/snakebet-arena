@@ -1,0 +1,462 @@
+.page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--surface-dark) 0%, var(--purple) 100%);
+}
+
+.main {
+  padding: 100px 24px 40px;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  gap: 16px;
+  color: var(--text-secondary);
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 78, 205, 0.2);
+  border-top-color: var(--pink);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.gameInfo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-family: var(--font-heading);
+  font-size: 18px;
+  color: var(--text);
+}
+
+.stake {
+  color: var(--green);
+  font-weight: 700;
+}
+
+.separator {
+  color: var(--text-secondary);
+}
+
+.exitBtn {
+  padding: 10px 20px;
+  background: rgba(255, 71, 87, 0.1);
+  border: 1px solid var(--error);
+  color: var(--error);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.exitBtn:hover {
+  background: rgba(255, 71, 87, 0.2);
+  color: var(--error);
+}
+
+.gameArea {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.scoreBoard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  padding: 20px;
+  background: var(--surface);
+  border: 1px solid rgba(255, 78, 205, 0.2);
+  border-radius: 16px;
+}
+
+.playerScore {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+  max-width: 200px;
+}
+
+.playerScore.guest {
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+.playerAvatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--surface-dark);
+  box-shadow: 0 0 20px currentColor;
+}
+
+.playerDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.playerName {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.youBadge {
+  font-size: 11px;
+  color: var(--pink);
+  margin-left: 4px;
+}
+
+.playerScoreValue {
+  font-family: var(--font-mono);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.vs {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--pink);
+  text-shadow: 0 0 20px rgba(255, 78, 205, 0.5);
+}
+
+.gameCanvas {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  background: var(--surface);
+  border: 2px solid rgba(255, 78, 205, 0.3);
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 0 40px rgba(255, 78, 205, 0.1);
+}
+
+.canvas {
+  border-radius: 8px;
+  max-width: 100%;
+  height: auto;
+}
+
+.countdown {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 10;
+  animation: pulse 1s infinite;
+}
+
+.countdownNumber {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: 120px;
+  font-weight: 900;
+  color: var(--pink);
+  text-shadow: 0 0 60px rgba(255, 78, 205, 0.8);
+  line-height: 1;
+}
+
+.countdownText {
+  display: block;
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text);
+  margin-top: 16px;
+}
+
+.waitingOverlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  background: rgba(13, 13, 26, 0.9);
+  padding: 40px 60px;
+  border-radius: 16px;
+  z-index: 10;
+}
+
+.waitingOverlay .spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 78, 205, 0.2);
+  border-top-color: var(--pink);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 16px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.waitingOverlay span {
+  font-size: 48px;
+  display: block;
+  margin-bottom: 12px;
+  animation: float 2s ease-in-out infinite;
+}
+
+.waitingOverlay p {
+  font-size: 16px;
+  color: var(--text-secondary);
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  background: var(--surface);
+  border: 1px solid rgba(255, 78, 205, 0.2);
+  border-radius: 16px;
+}
+
+.controlsHint {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.mobileControls {
+  display: none;
+  grid-template-columns: repeat(3, 60px);
+  grid-template-rows: repeat(2, 60px);
+  gap: 8px;
+}
+
+.controlBtn {
+  width: 60px;
+  height: 60px;
+  background: var(--surface-dark);
+  border: 2px solid rgba(255, 78, 205, 0.3);
+  border-radius: 12px;
+  color: var(--text);
+  font-size: 24px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.controlBtn:active {
+  background: var(--pink);
+  border-color: var(--pink);
+}
+
+.roundResult {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--surface);
+  border: 2px solid var(--warning);
+  border-radius: 20px;
+  padding: 40px 60px;
+  text-align: center;
+  z-index: 100;
+  animation: scaleIn 0.3s ease;
+}
+
+.roundResult h3 {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.roundResult p {
+  font-size: 16px;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.gameResult {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--surface);
+  border: 2px solid var(--pink);
+  border-radius: 24px;
+  padding: 48px 64px;
+  text-align: center;
+  z-index: 100;
+  animation: scaleIn 0.5s ease;
+}
+
+.gameResult.winner {
+  border-color: var(--green);
+  box-shadow: 0 0 60px rgba(57, 255, 20, 0.3);
+}
+
+.gameResult.loser {
+  border-color: var(--error);
+  box-shadow: 0 0 60px rgba(255, 71, 87, 0.3);
+}
+
+.resultIcon {
+  font-size: 72px;
+  margin-bottom: 16px;
+}
+
+.gameResult h2 {
+  font-family: var(--font-heading);
+  font-size: 36px;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+
+.winner h2 {
+  color: var(--green);
+}
+
+.loser h2 {
+  color: var(--error);
+}
+
+.gameResult p {
+  font-size: 18px;
+  color: var(--text-secondary);
+  margin-bottom: 32px;
+}
+
+.resultActions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.playAgainBtn {
+  padding: 14px 28px;
+  background: linear-gradient(135deg, var(--green), var(--green-dark));
+  color: var(--surface-dark);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.playAgainBtn:hover {
+  box-shadow: 0 0 20px rgba(57, 255, 20, 0.4);
+  color: var(--surface-dark);
+}
+
+.backBtn {
+  padding: 14px 28px;
+  background: transparent;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.backBtn:hover {
+  border-color: var(--text);
+  color: var(--text);
+}
+
+@keyframes pulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(-50%, -50%) scale(1.1); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@media (max-width: 768px) {
+  .main {
+    padding: 90px 16px 30px;
+  }
+  
+  .scoreBoard {
+    padding: 16px;
+    gap: 16px;
+  }
+  
+  .playerAvatar {
+    width: 44px;
+    height: 44px;
+    font-size: 16px;
+  }
+  
+  .playerScoreValue {
+    font-size: 22px;
+  }
+  
+  .vs {
+    font-size: 18px;
+  }
+  
+  .controlsHint {
+    display: none;
+  }
+  
+  .mobileControls {
+    display: grid;
+  }
+  
+  .countdownNumber {
+    font-size: 80px;
+  }
+  
+  .gameResult {
+    padding: 32px;
+    width: 90%;
+  }
+  
+  .resultActions {
+    flex-direction: column;
+  }
+}
