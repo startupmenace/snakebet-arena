@@ -4,7 +4,7 @@ import fs from 'fs';
 
 let db: Database.Database | null = null;
 
-function getDb(): Database.Database {
+export function getDb(): Database.Database {
   if (db !== null) return db;
   
   const dbPath = process.env.DB_PATH 
@@ -278,5 +278,4 @@ export function getMpesaTransaction(checkoutRequestId: string) {
   return getDb().prepare('SELECT * FROM mpesa_transactions WHERE checkout_request_id = ?').get(checkoutRequestId);
 }
 
-export { getDb as db };
-export default getDb;
+
