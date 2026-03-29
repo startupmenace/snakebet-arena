@@ -5,7 +5,7 @@ import fs from 'fs';
 let db: Database.Database | null = null;
 
 function getDb(): Database.Database {
-  if (db) return db;
+  if (db !== null) return db;
   
   const dbPath = process.env.DB_PATH 
     ? path.join(process.env.DB_PATH, 'snakebet.db')
@@ -29,16 +29,20 @@ function getDb(): Database.Database {
       avatar TEXT DEFAULT '/avatars/default.png',
       is_admin INTEGER DEFAULT 0,
       created_at TEXT DEFAULT CURRENT_TIMESTAMP
-    );
-
+    )
+  `);
+  
+  db.exec(`
     CREATE TABLE IF NOT EXISTS wallets (
       id TEXT PRIMARY KEY,
       user_id TEXT UNIQUE NOT NULL,
       balance REAL DEFAULT 0,
       locked_balance REAL DEFAULT 0,
       FOREIGN KEY (user_id) REFERENCES users(id)
-    );
-
+    )
+  `);
+  
+  db.exec(`
     CREATE TABLE IF NOT EXISTS transactions (
       id TEXT PRIMARY KEY,
       user_id TEXT NOT NULL,
@@ -50,8 +54,10 @@ function getDb(): Database.Database {
       description TEXT,
       created_at TEXT DEFAULT CURRENT_TIMESTAMP,
       FOREIGN KEY (user_id) REFERENCES users(id)
-    );
-
+    )
+  `);
+  
+  db.exec(`
     CREATE TABLE IF NOT EXISTS games (
       id TEXT PRIMARY KEY,
       host_id TEXT NOT NULL,
@@ -70,8 +76,10 @@ function getDb(): Database.Database {
       updated_at TEXT DEFAULT CURRENT_TIMESTAMP,
       FOREIGN KEY (host_id) REFERENCES users(id),
       FOREIGN KEY (guest_id) REFERENCES users(id)
-    );
-
+    )
+  `);
+  
+  db.exec(`
     CREATE TABLE IF NOT EXISTS mpesa_transactions (
       id TEXT PRIMARY KEY,
       checkout_request_id TEXT UNIQUE,
@@ -81,17 +89,19 @@ function getDb(): Database.Database {
       status TEXT DEFAULT 'pending',
       type TEXT NOT NULL,
       created_at TEXT DEFAULT CURRENT_TIMESTAMP
-    );
-
+    )
+  `);
+  
+  db.exec(`
     CREATE TABLE IF NOT EXISTS settings (
       key TEXT PRIMARY KEY,
       value TEXT NOT NULL
-    );
-
-    INSERT OR IGNORE INTO settings (key, value) VALUES ('commission', '0.05');
-    INSERT OR IGNORE INTO settings (key, value) VALUES ('min_stake', '50');
-    INSERT OR IGNORE INTO settings (key, value) VALUES ('max_stake', '5000');
+    )
   `);
+  
+  db.exec(`INSERT OR IGNORE INTO settings (key, value) VALUES ('commission', '0.05')`);
+  db.exec(`INSERT OR IGNORE INTO settings (key, value) VALUES ('min_stake', '50')`);
+  db.exec(`INSERT OR IGNORE INTO settings (key, value) VALUES ('max_stake', '5000')`);
   
   return db;
 }
@@ -117,9 +127,9 @@ export interface Wallet {
 export interface Transaction {
   id: string;
   user_id: string;
-  type: 'deposit' | 'withdraw' | 'stake' | 'win' | 'refund' | 'commission';
+  type: string;
   amount: number;
-  status: 'pending' | 'success' | 'failed';
+  status: string;
   reference: string | null;
   mpesa_ref: string | null;
   description: string | null;
@@ -132,8 +142,8 @@ export interface Game {
   guest_id: string | null;
   stake: number;
   rounds: number;
-  mode: 'duel' | 'arena';
-  status: 'waiting' | 'payment_pending' | 'ready' | 'playing' | 'completed' | 'cancelled';
+  mode: string;
+  status: string;
   host_paid: number;
   guest_paid: number;
   winner_id: string | null;
@@ -161,16 +171,8 @@ export function getUserByPhone(phone: string): User | undefined {
 }
 
 export function createUser(user: Omit<User, 'created_at'>): User {
-  getDb().prepare(`
-    INSERT INTO users (id, email, password_hash, username, phone, avatar, is_admin)
-    VALUES (?, ?, ?, ?, ?, ?, ?)
-  `).run(user.id, user.email, user.password_hash, user.username, user.phone, user.avatar, user.is_admin);
-  
-  getDb().prepare(`
-    INSERT INTO wallets (id, user_id, balance, locked_balance)
-    VALUES (?, ?, 0, 0)
-  `).run(crypto.randomUUID(), user.id);
-  
+  getDb().prepare('INSERT INTO users (id, email, password_hash, username, phone, avatar, is_admin) VALUES (?, ?, ?, ?, ?, ?, ?)').run(user.id, user.email, user.password_hash, user.username, user.phone, user.avatar, user.is_admin);
+  getDb().prepare('INSERT INTO wallets (id, user_id, balance, locked_balance) VALUES (?, ?, 0, 0)').run(crypto.randomUUID(), user.id);
   return getUserById(user.id)!;
 }
 
@@ -178,12 +180,8 @@ export function getWalletByUserId(userId: string): Wallet | undefined {
   return getDb().prepare('SELECT * FROM wallets WHERE user_id = ?').get(userId) as Wallet | undefined;
 }
 
-export function updateWalletBalance(userId: string, amount: number, lock: boolean = false): void {
-  if (lock) {
-    getDb().prepare('UPDATE wallets SET locked_balance = locked_balance + ? WHERE user_id = ?').run(amount, userId);
-  } else {
-    getDb().prepare('UPDATE wallets SET balance = balance + ? WHERE user_id = ?').run(amount, userId);
-  }
+export function updateWalletBalance(userId: string, amount: number): void {
+  getDb().prepare('UPDATE wallets SET balance = balance + ? WHERE user_id = ?').run(amount, userId);
 }
 
 export function deductBalance(userId: string, amount: number): void {
@@ -199,11 +197,7 @@ export function lockFunds(userId: string, amount: number): void {
 }
 
 export function createTransaction(tx: Omit<Transaction, 'created_at'>): Transaction {
-  getDb().prepare(`
-    INSERT INTO transactions (id, user_id, type, amount, status, reference, mpesa_ref, description)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-  `).run(tx.id, tx.user_id, tx.type, tx.amount, tx.status, tx.reference, tx.mpesa_ref, tx.description);
-  
+  getDb().prepare('INSERT INTO transactions (id, user_id, type, amount, status, reference, mpesa_ref, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?)').run(tx.id, tx.user_id, tx.type, tx.amount, tx.status, tx.reference, tx.mpesa_ref, tx.description);
   return getDb().prepare('SELECT * FROM transactions WHERE id = ?').get(tx.id) as Transaction;
 }
 
@@ -228,50 +222,23 @@ export function getGameByInviteCode(code: string): Game | undefined {
 }
 
 export function getWaitingGames(): Game[] {
-  return getDb().prepare(`
-    SELECT g.*, u1.username as host_username, u2.username as guest_username
-    FROM games g
-    LEFT JOIN users u1 ON g.host_id = u1.id
-    LEFT JOIN users u2 ON g.guest_id = u2.id
-    WHERE g.status = 'waiting' AND g.host_paid = 1
-    ORDER BY g.created_at DESC
-  `).all() as Game[];
+  return getDb().prepare('SELECT g.*, u1.username as host_username, u2.username as guest_username FROM games g LEFT JOIN users u1 ON g.host_id = u1.id LEFT JOIN users u2 ON g.guest_id = u2.id WHERE g.status = ? AND g.host_paid = 1 ORDER BY g.created_at DESC').all('waiting') as Game[];
 }
 
 export function getGamesByUserId(userId: string): Game[] {
-  return getDb().prepare(`
-    SELECT * FROM games WHERE host_id = ? OR guest_id = ? ORDER BY created_at DESC LIMIT 20
-  `).all(userId, userId) as Game[];
+  return getDb().prepare('SELECT * FROM games WHERE host_id = ? OR guest_id = ? ORDER BY created_at DESC LIMIT 20').all(userId, userId) as Game[];
 }
 
 export function createGame(game: Omit<Game, 'created_at' | 'updated_at'>): Game {
-  getDb().prepare(`
-    INSERT INTO games (id, host_id, guest_id, stake, rounds, mode, status, host_paid, guest_paid, winner_id, host_score, guest_score, invite_code)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-  `).run(
-    game.id, game.host_id, game.guest_id, game.stake, game.rounds, game.mode,
-    game.status, game.host_paid, game.guest_paid, game.winner_id,
-    game.host_score, game.guest_score, game.invite_code
-  );
-  
+  getDb().prepare('INSERT INTO games (id, host_id, guest_id, stake, rounds, mode, status, host_paid, guest_paid, winner_id, host_score, guest_score, invite_code) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)').run(game.id, game.host_id, game.guest_id, game.stake, game.rounds, game.mode, game.status, game.host_paid, game.guest_paid, game.winner_id, game.host_score, game.guest_score, game.invite_code);
   return getGameById(game.id)!;
 }
 
 export function updateGame(id: string, updates: Partial<Game>): void {
   const game = getGameById(id);
   if (!game) return;
-  
   const updated = { ...game, ...updates, updated_at: new Date().toISOString() };
-  
-  getDb().prepare(`
-    UPDATE games SET 
-      guest_id = ?, status = ?, host_paid = ?, guest_paid = ?, 
-      winner_id = ?, host_score = ?, guest_score = ?, updated_at = ?
-    WHERE id = ?
-  `).run(
-    updated.guest_id, updated.status, updated.host_paid, updated.guest_paid,
-    updated.winner_id, updated.host_score, updated.guest_score, updated.updated_at, id
-  );
+  getDb().prepare('UPDATE games SET guest_id = ?, status = ?, host_paid = ?, guest_paid = ?, winner_id = ?, host_score = ?, guest_score = ?, updated_at = ? WHERE id = ?').run(updated.guest_id, updated.status, updated.host_paid, updated.guest_paid, updated.winner_id, updated.host_score, updated.guest_score, updated.updated_at, id);
 }
 
 export function getSetting(key: string): string {
@@ -287,26 +254,11 @@ export function getStats(): { totalUsers: number; totalGames: number; totalVolum
   const users = getDb().prepare('SELECT COUNT(*) as count FROM users').get() as { count: number };
   const games = getDb().prepare('SELECT COUNT(*) as count FROM games').get() as { count: number };
   const volume = getDb().prepare("SELECT COALESCE(SUM(amount), 0) as total FROM transactions WHERE type IN ('stake', 'win')").get() as { total: number };
-  
-  return {
-    totalUsers: users.count,
-    totalGames: games.count,
-    totalVolume: volume.total
-  };
+  return { totalUsers: users.count, totalGames: games.count, totalVolume: volume.total };
 }
 
 export function getLeaderboard(): { username: string; total_wins: number; total_earnings: number }[] {
-  return getDb().prepare(`
-    SELECT u.username, 
-           COUNT(CASE WHEN g.winner_id = u.id THEN 1 END) as total_wins,
-           COALESCE(SUM(CASE WHEN g.winner_id = u.id THEN g.stake * (1 - ?) END), 0) as total_earnings
-    FROM users u
-    LEFT JOIN games g ON (u.id = g.host_id OR u.id = g.guest_id) AND g.status = 'completed'
-    GROUP BY u.id
-    HAVING total_wins > 0
-    ORDER BY total_earnings DESC
-    LIMIT 10
-  `).all(getSetting('commission')).slice(0, 10) as { username: string; total_wins: number; total_earnings: number }[];
+  return getDb().prepare('SELECT u.username, COUNT(CASE WHEN g.winner_id = u.id THEN 1 END) as total_wins, COALESCE(SUM(CASE WHEN g.winner_id = u.id THEN g.stake * (1 - ?) END), 0) as total_earnings FROM users u LEFT JOIN games g ON (u.id = g.host_id OR u.id = g.guest_id) AND g.status = ? GROUP BY u.id HAVING total_wins > 0 ORDER BY total_earnings DESC LIMIT 10').all(getSetting('commission'), 'completed') as { username: string; total_wins: number; total_earnings: number }[];
 }
 
 export function mpesaTransactionExists(checkoutRequestId: string): boolean {
@@ -315,16 +267,11 @@ export function mpesaTransactionExists(checkoutRequestId: string): boolean {
 }
 
 export function createMpesaTransaction(tx: { id: string; checkout_request_id: string; phone: string; amount: number; type: string }): void {
-  getDb().prepare(`
-    INSERT INTO mpesa_transactions (id, checkout_request_id, phone, amount, type, status)
-    VALUES (?, ?, ?, ?, ?, 'pending')
-  `).run(tx.id, tx.checkout_request_id, tx.phone, tx.amount, tx.type);
+  getDb().prepare('INSERT INTO mpesa_transactions (id, checkout_request_id, phone, amount, type, status) VALUES (?, ?, ?, ?, ?, ?)').run(tx.id, tx.checkout_request_id, tx.phone, tx.amount, tx.type, 'pending');
 }
 
 export function updateMpesaTransaction(checkoutRequestId: string, transactionId: string, status: string): void {
-  getDb().prepare(`
-    UPDATE mpesa_transactions SET transaction_id = ?, status = ? WHERE checkout_request_id = ?
-  `).run(transactionId, status, checkoutRequestId);
+  getDb().prepare('UPDATE mpesa_transactions SET transaction_id = ?, status = ? WHERE checkout_request_id = ?').run(transactionId, status, checkoutRequestId);
 }
 
 export function getMpesaTransaction(checkoutRequestId: string) {
@@ -332,4 +279,4 @@ export function getMpesaTransaction(checkoutRequestId: string) {
 }
 
 export { getDb as db };
-export default { getDb };
+export default getDb;
