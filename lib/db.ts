@@ -2,8 +2,7 @@ import Database from 'better-sqlite3';
 import path from 'path';
 import fs from 'fs';
 
-const isProduction = process.env.NODE_ENV === 'production';
-const dbDir = isProduction ? '/data' : process.cwd();
+const dbDir = process.env.DB_PATH || (process.env.NODE_ENV === 'production' ? '/data' : process.cwd());
 const dbPath = path.join(dbDir, 'snakebet.db');
 
 if (!fs.existsSync(dbDir)) {

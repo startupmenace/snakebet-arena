@@ -3,7 +3,7 @@ builder = "NIXPACKS"
 buildCommand = "npm install && npm run build"
 
 [deploy]
-startCommand = "npm run start"
+startCommand = "mkdir -p /data && npm run start"
 healthcheckPath = "/"
 healthcheckInterval = 15
 restartPolicyType = "ON_FAILURE"
@@ -12,11 +12,11 @@ restartPolicyMaxRetries = 10
 [[ports]]
 containerPort = 3000
 
+[[volumes]]
+name = "snakebet-data"
+mountPath = "/data"
+
 [env]
 NODE_ENV = "production"
 PORT = "3000"
-
-[disk]
-name = "data"
-sizeMb = 256
-mountPath = "/data"
+DB_PATH = "/data"
