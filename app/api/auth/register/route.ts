@@ -75,10 +75,18 @@ export async function POST(request: NextRequest) {
     response.cookies.set(cookie);
     
     return response;
-  } catch (error) {
+  } catch (error: any) {
     console.error('Registration error:', error);
+    
+    if (error.code === 'SQLITE_CONSTRAINT') {
+      return NextResponse.json(
+        { error: 'Email, username, or phone already exists' },
+        { status: 400 }
+      );
+    }
+    
     return NextResponse.json(
-      { error: 'Registration failed' },
+      { error: 'Registration failed. Please try again.' },
       { status: 500 }
     );
   }

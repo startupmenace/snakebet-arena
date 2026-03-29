@@ -1,22 +1,8 @@
 .page {
   min-height: 100vh;
-  background: linear-gradient(135deg, var(--surface-dark) 0%, var(--purple) 100%);
+  background: var(--surface-dark);
   position: relative;
   overflow-x: hidden;
-}
-
-.page::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: 
-    linear-gradient(rgba(255, 78, 205, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 78, 205, 0.03) 1px, transparent 1px);
-  background-size: 50px 50px;
-  pointer-events: none;
 }
 
 .nav {
@@ -108,6 +94,22 @@
   display: flex;
   align-items: center;
   padding: 120px 24px 80px;
+  background: linear-gradient(180deg, var(--surface-dark) 0%, rgba(26, 10, 46, 0.5) 100%);
+  position: relative;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(rgba(57, 255, 20, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(57, 255, 20, 0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
 }
 
 .heroContent {
@@ -256,8 +258,9 @@
   position: relative;
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 0 60px rgba(255, 78, 205, 0.3);
-  border: 2px solid rgba(255, 78, 205, 0.3);
+  box-shadow: 0 0 60px rgba(57, 255, 20, 0.2);
+  border: 2px solid rgba(57, 255, 20, 0.3);
+  background: #0d0d1a;
 }
 
 .gameCanvas {
@@ -266,6 +269,7 @@
   max-width: 400px;
   height: auto;
   border-radius: 14px;
+  background: #0d0d1a;
 }
 
 .gameOverlay {
@@ -316,7 +320,7 @@
 
 .howItWorks {
   padding: 120px 24px;
-  background: var(--surface-dark);
+  background: var(--surface);
 }
 
 .sectionHeader {
@@ -391,6 +395,7 @@
 
 .features {
   padding: 120px 24px;
+  background: var(--surface-dark);
 }
 
 .featureGrid {
@@ -435,8 +440,9 @@
 
 .cta {
   padding: 120px 24px;
-  background: linear-gradient(135deg, var(--pink-dark) 0%, var(--purple) 100%);
+  background: linear-gradient(135deg, var(--surface) 0%, var(--surface-dark) 100%);
   text-align: center;
+  border-top: 1px solid rgba(57, 255, 20, 0.1);
 }
 
 .ctaContent {
