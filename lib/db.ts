@@ -330,4 +330,10 @@ export function getMpesaTransaction(checkoutRequestId: string) {
   return getDb().prepare('SELECT * FROM mpesa_transactions WHERE checkout_request_id = ?').get(checkoutRequestId);
 }
 
-export { getDb as db };
+const db = {
+  prepare: (...args: any[]) => getDb().prepare(...args),
+  exec: (...args: any[]) => getDb().exec(...args),
+  pragma: (...args: any[]) => getDb().pragma(...args)
+};
+
+export default db;

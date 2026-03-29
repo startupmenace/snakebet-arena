@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSession } from '@/lib/auth';
-import { getUserByEmail, getUserById } from '@/lib/db';
-import db from '@/lib/db';
+import { getUserByEmail, getUserById, getDb } from '@/lib/db';
 
 export const dynamic = 'force-dynamic';
 
@@ -30,7 +29,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
     
-    db.prepare('UPDATE users SET is_admin = ? WHERE id = ?').run(makeAdmin ? 1 : 0, targetUser.id);
+    getDb().prepare('UPDATE users SET is_admin = ? WHERE id = ?').run(makeAdmin ? 1 : 0, targetUser.id);
     
     return NextResponse.json({ 
       success: true, 
