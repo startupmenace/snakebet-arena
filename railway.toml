@@ -15,3 +15,8 @@ containerPort = 3000
 [env]
 NODE_ENV = "production"
 PORT = "3000"
+
+[disk]
+name = "data"
+sizeMb = 256
+mountPath = "/data"

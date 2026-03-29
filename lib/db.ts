@@ -1,7 +1,15 @@
 import Database from 'better-sqlite3';
 import path from 'path';
+import fs from 'fs';
 
-const dbPath = path.join(process.cwd(), 'snakebet.db');
+const isProduction = process.env.NODE_ENV === 'production';
+const dbDir = isProduction ? '/data' : process.cwd();
+const dbPath = path.join(dbDir, 'snakebet.db');
+
+if (!fs.existsSync(dbDir)) {
+  fs.mkdirSync(dbDir, { recursive: true });
+}
+
 const db = new Database(dbPath);
 
 db.pragma('journal_mode = WAL');
