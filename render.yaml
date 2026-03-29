@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: snakebet-arena
+    env: node
+    region: Oregon
+    buildCommand: npm install
+    startCommand: npm run start
+    healthCheckPath: /
+    plan: free
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      - key: SIMULATE_MPESA
+        value: "true"

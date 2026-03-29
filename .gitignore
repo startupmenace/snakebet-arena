@@ -44,3 +44,5 @@ next-env.d.ts
 .vscode
 *.swp
 *.swo
+*.db-shm
+*.db-wal

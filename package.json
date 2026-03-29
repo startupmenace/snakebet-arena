@@ -7,8 +7,8 @@
     "dev:next": "next dev",
     "dev:socket": "tsx server/socket.ts",
     "dev:all": "tsx server.ts",
-    "build": "npx tsc",
-    "start": "NODE_ENV=production node server.js",
+    "build": "next build",
+    "start": "node server.js",
     "start:dev": "tsx server.ts",
     "lint": "next lint"
   },
